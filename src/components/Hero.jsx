@@ -1,6 +1,6 @@
 import styles from "../style";
 import { discount, robot } from "../assets";
-import Image from "../assets/allcards.png";
+import Image from "../assets/2.png";
 import GetStarted from "./GetStarted";
 
 const Hero = () => {
@@ -39,7 +39,7 @@ const Hero = () => {
         <img
           src={Image}
           alt="billing"
-          className="w-[100%] h-[50%] relative z-[5]"
+          className="w-[100%] h-[100%] relative z-[5] "
         />
 
         {/* gradient start */}

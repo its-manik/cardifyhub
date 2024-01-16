@@ -1,9 +1,9 @@
 import { apple, bill, google } from "../assets";
-import crypto from "../assets/crypto.png";
+import crypto from "../assets/1.png";
 import styles, { layout } from "../style";
 
 const Billing = () => (
-  <section id="product" className={layout.sectionReverse}>
+  <section id="product" className="flex md:flex-row flex-col-reverse gap-20 sm:py-16 py-6">
     <div className={layout.sectionImgReverse}>
       <img src={crypto} alt="billing" className="w-[100%] h-[100%] relative z-[5]" />
 

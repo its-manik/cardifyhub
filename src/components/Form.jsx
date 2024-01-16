@@ -87,10 +87,11 @@ const Form = ({setIsOpen, setInputs}) => {
   };
 
   return (
-    <section className="flex flex-col items-center pt-6 w-[100%] py-10">
-      <img id="form" src={Image} alt="card image" />
+    <section className="flex flex-col items-center pt-6 w-[100%] py-10 mb-20">
+      <img id="form" src={Image} alt="card image" className="
+      w-[50%] my-10"/>
       <div className="w-[95%] bg-black-gradient-2 rounded-lg shadow dark:border md:mt-0 sm:max-w-[50%] xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
           {/* <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Create an account
           </h1> */}
@@ -151,7 +152,7 @@ const Form = ({setIsOpen, setInputs}) => {
             </div>
             {cardtype === 1 ? (
               <div>
-                <input value={amount} onChange={(e) => setAmount(e.target.value)}
+                <input 
                   required
                   type="text"
                   name="redem"

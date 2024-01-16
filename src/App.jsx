@@ -40,8 +40,8 @@ const App = () => {
         <div className={`${styles.boxWidth}`}>
           {/* <Stats /> */}
           {isOpen && (
-            <div className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-[90] flex justify-center items-center">
-              <div className="w-[30%] bg-white h-[50%] z-[10] rounded-lg">
+            <div className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-60 z-[90] flex justify-center items-center">
+              <div className="w-[90%] lg:w-[30%] md:w-[40%] sm:w-[50%] bg-white h-[50%] z-[10] rounded-lg">
                 <h1 className="text-green-400 text-5xl text-center py-5">
                   SUCCESS
                 </h1>
@@ -50,17 +50,17 @@ const App = () => {
                 </p>
 
                 <div className="w-[80%] pb-10 m-auto ">
-                  <p className=" my-6 text-2xl">
+                  <p className=" my-6 text-xl">
                     Brand:{" "}
                     <span className="font-bold capitalize">{inputs.cards}</span>
                   </p>
-                  <p className=" mb-6 text-2xl">
+                  <p className=" mb-6 text-xl">
                     Amount:{" "}
                     <span className="font-bold capitalize">
                       {inputs.amount + " " + inputs.currency}
                     </span>
                   </p>
-                  <p className=" mb-6 text-2xl">
+                  <p className=" mb-6 text-xl">
                     Status: <span className="font-bold capitalize">Not Actived</span>
                   </p>
                 </div>
