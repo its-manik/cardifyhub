@@ -9,7 +9,7 @@ const CardDeal = () => (
       Secured and Encrypted
       </h2>
       <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-      We at Card-ly makes sure customers giftcard details are secured and encrypted. No attacker or false identity can intercept your verification operations
+      We at cardcertify makes sure customers giftcard details are secured and encrypted. No attacker or false identity can intercept your verification operations
       </p>
 
       <Button styles={`mt-10`} />
